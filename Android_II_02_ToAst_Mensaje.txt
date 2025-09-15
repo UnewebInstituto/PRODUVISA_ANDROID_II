@@ -1,0 +1,122 @@
+Código completo para Android Studio, incluyendo el XML del layout y la clase Java, que muestra un **Toast personalizado y de mayor tamaño** al hacer clic en un botón.
+
+-----
+
+### 1\. Archivo `activity_main.xml`
+
+Este es el layout principal de tu actividad. Contiene un simple botón en el centro de la pantalla.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_show_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mostrar Toast Grande"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+-----
+
+### 2\. Archivo `custom_toast_layout.xml`
+
+Este es el layout personalizado para tu Toast. Puedes modificar los colores, el tamaño del texto, los márgenes, etc., para que se adapte a tus necesidades.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom_toast_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#333333"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/text_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Mensaje de Toast Grande!"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+```
+
+-----
+
+### 3\. Archivo `MainActivity.java`
+
+Esta es la clase principal de tu actividad. Aquí es donde se infla el layout y se define el comportamiento del botón para mostrar el Toast personalizado.
+
+```java
+package com.example.miaplicacion; // Reemplaza con el nombre de tu paquete
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Encontrar el botón por su ID
+        Button button = findViewById(R.id.btn_show_toast);
+
+        // Configurar el listener de clic para el botón
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener el inflador de layouts
+                LayoutInflater inflater = getLayoutInflater();
+
+                // Inflar la vista personalizada del Toast
+                View customToastView = inflater.inflate(R.layout.custom_toast_layout,
+                        findViewById(R.id.custom_toast_container));
+
+                // Opcional: Si quieres cambiar el texto del Toast programáticamente
+                // TextView toastText = customToastView.findViewById(R.id.text_toast);
+                // toastText.setText("¡El botón ha sido presionado!");
+
+                // Crear el objeto Toast y asignar la vista personalizada
+                Toast toast = new Toast(getApplicationContext());
+                toast.setView(customToastView);
+
+                // Establecer la duración del Toast
+                toast.setDuration(Toast.LENGTH_LONG);
+
+                // Opcional: Establecer la posición del Toast en la pantalla
+                toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 100);
+
+                // Mostrar el Toast
+                toast.show();
+            }
+        });
+    }
+}
+```
+
+Para que este código funcione, asegúrate de que los nombres de los archivos y los IDs (`R.layout.activity_main`, `R.id.btn_show_toast`, etc.) coincidan con los de tu proyecto. ¡Con estos tres archivos, tu aplicación estará lista para mostrar un Toast personalizado y de gran tamaño al presionar el botón\!
