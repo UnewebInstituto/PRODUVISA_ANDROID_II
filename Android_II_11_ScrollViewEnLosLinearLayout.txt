@@ -21,6 +21,10 @@ Este archivo define la estructura visual. El `ScrollView` es el contenedor princ
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbarSize="10dp"
+    android:fadingEdge="none"
+    android:scrollbars="vertical"
+    android:fadeScrollbars="false"
     tools:context=".MainActivity">
 
     <LinearLayout

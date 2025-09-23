@@ -1,0 +1,115 @@
+Como experto en Android Studio, te diré que la propiedad para ajustar el ancho de la barra de desplazamiento no es del `LinearLayout`, ya que este no tiene una barra de desplazamiento por sí solo. La barra de desplazamiento es proporcionada por el `ScrollView`, que es el componente que envuelve a tu `LinearLayout`.
+
+-----
+
+## Modificar el Ancho de la Barra de Desplazamiento
+
+Para cambiar el ancho de la barra de desplazamiento, debes usar la propiedad **`android:scrollbarSize`** en tu `ScrollView`.
+
+Aquí tienes un ejemplo de cómo se vería en tu archivo XML:
+
+```xml
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarSize="10dp">  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+
+        </LinearLayout>
+
+</ScrollView>
+```
+
+En este ejemplo, la propiedad `android:scrollbarSize` se ha establecido en `10dp`, lo que hará que la barra de desplazamiento sea más ancha. Puedes ajustar este valor según tus necesidades.
+
+-----
+
+## Otras Propiedades Útiles para la Barra de Desplazamiento
+
+Además de `android:scrollbarSize`, hay otras propiedades que puedes usar para personalizar el aspecto de la barra de desplazamiento:
+
+  * **`android:scrollbarThumbVertical`**: Te permite establecer un *drawable* (una imagen o un archivo de forma) para la "manija" de la barra de desplazamiento vertical.
+  * **`android:scrollbarTrackVertical`**: Permite definir un *drawable* para el "riel" o "pista" de la barra de desplazamiento vertical.
+
+Estas propiedades te dan un control total sobre el color y la forma de la barra, ayudándote a que se ajuste mejor al diseño de tu aplicación. Recuerda que todas estas personalizaciones se aplican al `ScrollView`, no al `LinearLayout`.
+
+
+Para evitar el efecto de desvanecimiento (fading edge) que aparece al desplazarse en un `ScrollView` o cualquier vista desplazable en Android, debes modificar la propiedad **`android:fadingEdge`** en tu archivo de diseño XML.
+
+-----
+
+## Desactivar el Fading Edge
+
+El efecto de desvanecimiento se puede controlar con la propiedad `android:fadingEdge` y sus variantes. La forma más sencilla de desactivarlo por completo es establecer su valor en `"none"`.
+
+Aquí tienes un ejemplo en un `ScrollView`:
+
+```xml
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadingEdge="none"  />
+```
+
+También puedes ser más específico si quieres desactivar el desvanecimiento solo en una dirección:
+
+  * **`android:fadingEdge="horizontal"`**: Desactiva el desvanecimiento vertical, pero lo mantiene en el borde horizontal.
+  * **`android:fadingEdge="vertical"`**: Desactiva el desvanecimiento horizontal, pero lo mantiene en el borde vertical.
+
+## Controlar el Tamaño del Fading Edge
+
+Además, si no quieres desactivar el efecto por completo sino simplemente hacerlo menos notorio, puedes ajustar su tamaño con la propiedad **`android:fadingEdgeLength`**. El valor por defecto es 50dp.
+
+```xml
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadingEdge="vertical"
+    android:fadingEdgeLength="20dp" />
+```
+
+En este caso, la longitud del efecto de desvanecimiento vertical se reduce a `20dp`, haciéndolo más sutil.
+
+
+Entiendo lo que quieres lograr. El comportamiento predeterminado de las barras de desplazamiento en Android es que se desvanecen y solo aparecen cuando el usuario interactúa con el scroll (al desplazarse). Para que la barra de desplazamiento sea **siempre visible**, independientemente de la interacción del usuario, necesitas usar la propiedad **`android:scrollbars`** y **`android:fadeScrollbars`**.
+
+-----
+
+## Mantener la Barra de Desplazamiento Siempre Visible
+
+En tu `ScrollView`, debes hacer los siguientes ajustes:
+
+1.  **`android:scrollbars="vertical"`**: Asegura que la barra de desplazamiento vertical esté habilitada.
+2.  **`android:fadeScrollbars="false"`**: Esta es la propiedad clave. Al establecerla en `false`, evitas que las barras de desplazamiento se desvanezcan, manteniéndolas visibles en todo momento.
+
+Aquí te muestro cómo quedaría tu código XML actualizado:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarSize="10dp"
+    android:fadingEdge="none"
+    android:scrollbars="vertical"       android:fadeScrollbars="false"      tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/main_layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        </LinearLayout>
+
+</ScrollView>
+```
+
+Con `android:fadeScrollbars="false"`, la barra de desplazamiento vertical (que ya tienes configurada con `android:scrollbarSize` para tener un ancho específico y `android:fadingEdge="none"` para evitar el desvanecimiento de contenido) ahora debería permanecer visible de forma constante, sin ocultarse cuando no hay interacción.
+
+¡Prueba estos cambios y verás la barra de desplazamiento fija\!
